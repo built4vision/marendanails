@@ -1,15 +1,12 @@
 /* ==========================================================================
-   BUILT4VISION — BRAND ANTHEM LANDING PAGE TEMPLATE
+   MARENDA NAILS × BUILT4VISION — "Polished Your Way"
    Single source of truth for editable values, shared by every page on this
    site (index.html, thank-you/index.html, schedule/index.html). Update this
-   object for each new client — the rest of the scripts read from it and
-   populate every page automatically.
+   object only — the rest of the scripts read from it and populate the page.
    ========================================================================== */
 const CONFIG = {
-  // EDIT: the client's business name, exactly as they'd want it displayed.
-  businessName: "[Business Name]",
-  // EDIT: the anthem's title.
-  songTitle: "[Song Title]",
+  businessName: "Marenda Nails",
+  songTitle: "Polished Your Way",
 
   // Add the client's anthem MP3 at this path (or change the path).
   audioSrc: "audio/anthem.mp3",
@@ -31,9 +28,9 @@ const CONFIG = {
   secondPreviewStartSeconds: 60,
   secondPreviewEndSeconds: 90,
 
-  // EDIT: the client's city/state and full address, as used in the story copy.
-  cityState: "[City, State]",
-  address: "[Street Address, City, State ZIP]",
+  cityState: "Lincoln, North Carolina",
+  // EDIT: no confirmed street address yet — swap in the real one when available.
+  address: "Lincoln, North Carolina",
 
   // Built4Vision's own info — stays the same across every client project.
   builtByName: "Built4Vision",
