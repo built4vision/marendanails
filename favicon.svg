@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Placeholder favicon — replace with the real Razors Edge mark when supplied -->
+  <rect width="64" height="64" fill="#0a0a0b"/>
+  <path d="M14 46 L46 14" stroke="#d9c48a" stroke-width="4" stroke-linecap="round"/>
+  <path d="M24 50 L50 24" stroke="#f3ead9" stroke-width="4" stroke-linecap="round"/>
+</svg>

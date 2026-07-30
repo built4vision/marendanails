@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <!-- ============================================================
+       SEO / SOCIAL META
+       Keep these in sync with the CONFIG object in js/config.js —
+       social crawlers read this static markup, not JS output.
+  ============================================================ -->
+  <title>For [Business Name] — A Custom Anthem by Built4Vision</title>
+  <meta name="description" content="A custom brand anthem created for [Business Name] in [City, State] — a creative gift, not an advertisement. Presented by Built4Vision." />
+  <!-- EDIT: replace with the live URL once this page is deployed -->
+  <link rel="canonical" href="https://built4vision.net/[client-slug]" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="For [Business Name] — A Custom Anthem by Built4Vision" />
+  <meta property="og:description" content="A custom brand anthem created for [Business Name] in [City, State]. Presented by Built4Vision." />
+  <!-- EDIT: add a 1200x630 social preview image at images/social-preview.jpg -->
+  <meta property="og:image" content="images/social-preview.jpg" />
+  <meta property="og:url" content="https://built4vision.net/[client-slug]" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon placeholder — swap for the client's mark when supplied -->
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============================================================
+       HERO
+       A cinematic, staged build with no pricing or sales language.
+       Built4Vision is not named here — it's introduced later, after
+       the song, in the "why we made this" section.
+  ============================================================ -->
+  <header class="hero" id="main">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__scrim" aria-hidden="true"></div>
+
+    <div class="wrap hero__inner">
+      <p class="wordmark" data-animate>
+        <!-- Logo placeholder: drop images/logo.svg here and this swaps in automatically -->
+        <img
+          class="wordmark__logo-img"
+          src="images/logo.svg"
+          alt="[Business Name] logo"
+          data-config-src="logoImage"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';"
+        />
+        <span class="wordmark__text" style="display:none;" data-config="businessName">[Business Name]</span>
+      </p>
+
+      <h1 class="hero__headline" data-animate>For <span data-config="businessName">[Business Name]</span>.</h1>
+      <p class="hero__by" data-animate>A custom creative concept.</p>
+
+      <!--
+        EDIT: replace these 5 lines with specific details you learned
+        about THIS business's story. Keep them short — one idea per
+        line, building toward "Then we turned that story into music."
+        Generic filler defeats the point; these should feel like they
+        could only be about this one business.
+      -->
+      <div class="hero__build" aria-label="How this came together">
+        <p data-animate style="transition-delay: 0.05s">We spent time learning about your business.</p>
+        <p data-animate style="transition-delay: 0.22s">[Detail 1 — something specific about them]</p>
+        <p data-animate style="transition-delay: 0.39s">[Detail 2]</p>
+        <p data-animate style="transition-delay: 0.56s">[Detail 3]</p>
+        <p data-animate style="transition-delay: 0.73s">[Detail 4]</p>
+      </div>
+
+      <p class="hero__turn" data-animate style="transition-delay: 0.95s">Then we turned that story into music.</p>
+
+      <!-- ============================================================
+           CUSTOM AUDIO PLAYER — styled as a record release, not a
+           utility widget. Add the client's anthem MP3 at the path set
+           in js/config.js CONFIG.audioSrc. No autoplay — playback
+           starts only on user action.
+      ============================================================ -->
+      <div class="release-card" data-animate style="transition-delay: 1.1s">
+        <audio
+          id="anthem-audio"
+          preload="metadata"
+          data-config-src="audioSrc"
+        >
+          <source src="audio/anthem.mp3" type="audio/mpeg" data-config-src="audioSrc" />
+        </audio>
+
+        <div class="release-card__meta">
+          <p class="release-card__subtitle"><span data-config="businessName">[Business Name]</span> — Original Anthem</p>
+          <p class="release-card__title" data-config="songTitle">[Song Title]</p>
+        </div>
+
+        <div class="release-card__art">
+          <div class="release-card__art-bg" aria-hidden="true"></div>
+          <button class="release-card__play" id="play-toggle" type="button" aria-label="Play the anthem">
+            <svg class="icon icon--play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon icon--pause" viewBox="0 0 24 24" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+        </div>
+
+        <div class="release-card__controls">
+          <button class="player__restart" id="restart-btn" type="button" aria-label="Restart track">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+          </button>
+
+          <div class="player__scrub">
+            <div class="waveform" id="waveform" aria-hidden="true">
+              <div class="waveform__layer waveform__layer--base" id="wave-base"></div>
+              <div class="waveform__layer waveform__layer--progress" id="wave-progress"></div>
+            </div>
+            <input
+              type="range"
+              id="seek"
+              class="seek"
+              min="0"
+              max="1000"
+              value="0"
+              step="1"
+              aria-label="Seek position in track"
+            />
+          </div>
+
+          <div class="player__time" aria-live="off">
+            <span id="time-elapsed">0:00</span>
+            <span class="player__time-sep">/</span>
+            <span id="time-total">0:00</span>
+          </div>
+
+          <div class="player__volume">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v4h4l5 5V5L7 10H3z"/></svg>
+            <input
+              type="range"
+              id="volume"
+              class="volume"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0.85"
+              aria-label="Volume"
+            />
+          </div>
+        </div>
+
+        <p class="player__fallback" id="player-fallback" hidden>
+          Audio file not found — add <code>audio/anthem.mp3</code> to enable playback.
+        </p>
+
+        <p class="release-card__caption">The full song and clean masters are yours after purchase.</p>
+      </div>
+
+      <button class="hero__scrollcue" type="button" data-scroll-to="#story" aria-label="Scroll to see the story">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16.5 4.5 9l1.4-1.4L12 13.7l6.1-6.1L19.5 9z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         STORY PROOF — the evidence behind the song.
+    ============================================================ -->
+    <section class="section story-section" id="story" aria-labelledby="story-heading">
+      <div class="wrap wrap--narrow">
+        <h2 class="story-heading" id="story-heading" data-animate>Inspired by Your Story</h2>
+
+        <!-- EDIT: 5 specific, true facts about this business — these
+             double as proof, right after the "did we capture your
+             story?" question later on the page. -->
+        <ul class="story-checklist" data-animate>
+          <li>[Fact 1]</li>
+          <li>[Fact 2]</li>
+          <li>[Fact 3]</li>
+          <li>[Fact 4]</li>
+          <li>[Fact 5]</li>
+        </ul>
+
+        <!-- ============================================================
+             SECOND SAMPLE — a different moment from the song, further
+             in (a likely hook/chorus window). Independent player
+             instance; see js/main.js initPlayer() and js/config.js
+             secondPreviewStartSeconds/secondPreviewEndSeconds.
+        ============================================================ -->
+        <div class="mini-player" data-animate>
+          <p class="mini-player__eyebrow">Another Sample From the Song</p>
+
+          <audio id="anthem-audio-2" preload="metadata" data-config-src="audioSrc">
+            <source src="audio/anthem.mp3" type="audio/mpeg" data-config-src="audioSrc" />
+          </audio>
+
+          <button class="mini-player__play" id="play-toggle-2" type="button" aria-label="Play a different moment from the anthem">
+            <svg class="icon icon--play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="icon icon--pause" viewBox="0 0 24 24" aria-hidden="true" hidden><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+          </button>
+
+          <p class="mini-player__label">A different part of the track</p>
+
+          <div class="release-card__controls">
+            <button class="player__restart" id="restart-btn-2" type="button" aria-label="Restart this preview">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+            </button>
+
+            <div class="player__scrub">
+              <div class="waveform" id="waveform-2" aria-hidden="true">
+                <div class="waveform__layer waveform__layer--base" id="wave-base-2"></div>
+                <div class="waveform__layer waveform__layer--progress" id="wave-progress-2"></div>
+              </div>
+              <input
+                type="range"
+                id="seek-2"
+                class="seek"
+                min="0"
+                max="1000"
+                value="0"
+                step="1"
+                aria-label="Seek position in this preview"
+              />
+            </div>
+
+            <div class="player__time" aria-live="off">
+              <span id="time-elapsed-2">0:00</span>
+              <span class="player__time-sep">/</span>
+              <span id="time-total-2">0:00</span>
+            </div>
+
+            <div class="player__volume">
+              <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v4h4l5 5V5L7 10H3z"/></svg>
+              <input
+                type="range"
+                id="volume-2"
+                class="volume"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0.85"
+                aria-label="Volume"
+              />
+            </div>
+          </div>
+
+          <p class="player__fallback" id="player-fallback-2" hidden>
+            Audio file not found — add <code>audio/anthem.mp3</code> to enable playback.
+          </p>
+        </div>
+      </div>
+
+      <!-- Full-bleed shop/location photo. If images/shop-photo.jpg is missing, this simply hides. -->
+      <figure class="story-photo" data-animate>
+        <img
+          src="images/shop-photo.jpg"
+          alt="Inside [Business Name]"
+          onerror="this.parentElement.style.display='none';"
+        />
+      </figure>
+    </section>
+
+    <!-- ============================================================
+         VALIDATION MOMENT — the reader agrees before the pitch.
+    ============================================================ -->
+    <section class="section section--alt" id="validate" aria-labelledby="validate-heading">
+      <div class="wrap wrap--narrow">
+        <h2 class="section__heading" id="validate-heading" data-animate>Did We Capture Your Story?</h2>
+        <div class="validate__choices" data-animate>
+          <button class="validate__choice" type="button" data-scroll-to="#pivot">
+            <span aria-hidden="true">&#128077;</span> Absolutely
+          </button>
+          <button class="validate__choice" type="button" data-scroll-to="#pivot">
+            <span aria-hidden="true">&#129300;</span> Almost
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PIVOT — the emotional bridge, and a chance to relisten.
+    ============================================================ -->
+    <section class="section" id="pivot" aria-label="Pivot">
+      <div class="wrap wrap--narrow">
+        <p class="pivot-line" data-animate>Imagine what we could build together.</p>
+        <button class="play-again" type="button" data-play-again="main" data-scroll-to="#main">
+          <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          Hear it again
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         VISION — show it, don't explain it.
+         EDIT: swap the 3 images below and their captions to fit
+         this client's actual content plans. Photos live at
+         images/reel-1.jpg, reel-2.jpg, shop-photo.jpg by default —
+         reuse the same shop photo for a third card if only 2 distinct
+         photos exist yet, as done here.
+    ============================================================ -->
+    <section class="section section--alt" id="vision" aria-labelledby="vision-heading">
+      <div class="wrap">
+        <p class="section__eyebrow" data-animate>How this could look</p>
+        <h2 class="section__heading" id="vision-heading" data-animate>Imagine It In Their Feed</h2>
+
+        <div class="mockup-grid" data-animate>
+          <div class="mockup">
+            <div class="mockup__post">
+              <div class="mockup__post-head">
+                <span class="mockup__post-avatar" aria-hidden="true"></span>
+                <span class="mockup__post-name" data-config="businessName">[Business Name]</span>
+              </div>
+              <div class="mockup__post-media">
+                <img
+                  src="images/reel-1.jpg"
+                  alt="[Content idea 1]"
+                  onerror="this.closest('.mockup__post-media').classList.add('mockup__post-media--empty');"
+                />
+                <span class="mockup__play" aria-hidden="true">&#9654;</span>
+                <span class="mockup__badge">Reel</span>
+              </div>
+              <div class="mockup__post-actions" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 21s-6.7-4.35-9.3-8.1C1.02 10.9 1.6 7.6 4.4 6.2c2.3-1.15 4.6-.2 5.9 1.4.5.6 1.3.6 1.8 0 1.3-1.6 3.6-2.55 5.9-1.4 2.8 1.4 3.38 4.7 1.7 6.7C18.7 16.65 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.4 0-2.7-.32-3.86-.9L3 21l1.9-5.64A8.46 8.46 0 0 1 3.5 11.5 8.5 8.5 0 0 1 12 3a8.5 8.5 0 0 1 9 8.5z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              </div>
+              <p class="mockup__post-caption"><strong data-config="businessName">[Business Name]</strong> — [Short caption]</p>
+            </div>
+            <p class="mockup__caption">[What this piece of content shows]</p>
+          </div>
+
+          <div class="mockup">
+            <div class="mockup__post">
+              <div class="mockup__post-head">
+                <span class="mockup__post-avatar" aria-hidden="true"></span>
+                <span class="mockup__post-name" data-config="businessName">[Business Name]</span>
+              </div>
+              <div class="mockup__post-media">
+                <img
+                  src="images/reel-2.jpg"
+                  alt="[Content idea 2]"
+                  onerror="this.closest('.mockup__post-media').classList.add('mockup__post-media--empty');"
+                />
+                <span class="mockup__play" aria-hidden="true">&#9654;</span>
+                <span class="mockup__badge">TikTok</span>
+              </div>
+              <div class="mockup__post-actions" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 21s-6.7-4.35-9.3-8.1C1.02 10.9 1.6 7.6 4.4 6.2c2.3-1.15 4.6-.2 5.9 1.4.5.6 1.3.6 1.8 0 1.3-1.6 3.6-2.55 5.9-1.4 2.8 1.4 3.38 4.7 1.7 6.7C18.7 16.65 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.4 0-2.7-.32-3.86-.9L3 21l1.9-5.64A8.46 8.46 0 0 1 3.5 11.5 8.5 8.5 0 0 1 12 3a8.5 8.5 0 0 1 9 8.5z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              </div>
+              <p class="mockup__post-caption"><strong data-config="businessName">[Business Name]</strong> — [Short caption]</p>
+            </div>
+            <p class="mockup__caption">[What this piece of content shows]</p>
+          </div>
+
+          <div class="mockup">
+            <div class="mockup__post">
+              <div class="mockup__post-head">
+                <span class="mockup__post-avatar" aria-hidden="true"></span>
+                <span class="mockup__post-name" data-config="businessName">[Business Name]</span>
+              </div>
+              <div class="mockup__post-media">
+                <img
+                  src="images/shop-photo.jpg"
+                  alt="[Business Name] location"
+                  onerror="this.closest('.mockup__post-media').classList.add('mockup__post-media--empty');"
+                />
+                <span class="mockup__play" aria-hidden="true">&#9654;</span>
+                <span class="mockup__badge">Facebook</span>
+              </div>
+              <div class="mockup__post-actions" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 21s-6.7-4.35-9.3-8.1C1.02 10.9 1.6 7.6 4.4 6.2c2.3-1.15 4.6-.2 5.9 1.4.5.6 1.3.6 1.8 0 1.3-1.6 3.6-2.55 5.9-1.4 2.8 1.4 3.38 4.7 1.7 6.7C18.7 16.65 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.4 0-2.7-.32-3.86-.9L3 21l1.9-5.64A8.46 8.46 0 0 1 3.5 11.5 8.5 8.5 0 0 1 12 3a8.5 8.5 0 0 1 9 8.5z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+              </div>
+              <p class="mockup__post-caption"><strong data-config="businessName">[Business Name]</strong> — [Short caption]</p>
+            </div>
+            <p class="mockup__caption">[What this piece of content shows]</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         WHY WE MADE THIS — Built4Vision is introduced here, after
+         the song and the story, not before. Reusable as-is.
+    ============================================================ -->
+    <section class="section section--trust" id="trust" aria-labelledby="trust-heading">
+      <div class="wrap wrap--narrow">
+        <h2 class="section__heading" id="trust-heading" data-animate>Why Did We Make This?</h2>
+        <p class="trust__body" data-animate>
+          Because we believe every great local business has a story worth telling.
+        </p>
+        <p class="pivot-line pivot-line--tight" data-animate>
+          This was our way of saying — we noticed yours.
+        </p>
+        <p class="trust__by" data-animate>
+          <span data-config="builtByName">Built4Vision</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         THE OFFER — arrives last, softly. Reusable as-is; these are
+         Built4Vision's standard tiers, not client-specific.
+    ============================================================ -->
+    <section class="section section--alt" id="offers" aria-labelledby="offers-heading">
+      <div class="wrap">
+        <p class="section__eyebrow" data-animate>Ready when you are</p>
+        <h2 class="section__heading" id="offers-heading" data-animate>Imagine What We Could Create Together</h2>
+
+        <div class="offers" data-animate>
+
+          <!-- OFFER 1 — PRIMARY -->
+          <div class="offer offer--primary">
+            <span class="offer__badge">Recommended</span>
+            <h3 class="offer__name">Creative Growth Package</h3>
+            <p class="offer__price">
+              <span class="offer__price-amount" data-config="packagePrice">$197</span>
+              <span class="offer__price-term">/month</span>
+            </p>
+            <ul class="offer__list offer__list--check">
+              <li>Professional website build included</li>
+              <li>Hosting and basic maintenance included</li>
+              <li>Monthly website updates included</li>
+              <li>SEO-friendly page structure</li>
+              <li>Support for changes, improvements, and growth</li>
+              <li>&#127925; Custom AI Music Brand Anthem Included (<span data-config="songPrice">$49</span> Value)</li>
+              <li>Best for businesses that want an ongoing website partner</li>
+            </ul>
+            <button class="btn btn--primary btn--block" type="button" data-offer="package">
+              Build the Full <span data-config="businessName">[Business Name]</span> Experience
+            </button>
+            <p class="offer__note">The anthem is included with the complete package.</p>
+
+            <!-- Payment placeholder — non-functional until a real link is added in js/config.js CONFIG.paymentLinks -->
+            <div class="offer__pay" data-pay="package"></div>
+          </div>
+
+          <!-- OFFER 2 — SECONDARY -->
+          <div class="offer">
+            <h3 class="offer__name">Song Only</h3>
+            <p class="offer__price">
+              <span class="offer__price-amount" data-config="songPrice">$49</span>
+              <span class="offer__price-term">one time</span>
+            </p>
+            <ul class="offer__list">
+              <li>Full clean track</li>
+              <li>Business-use rights</li>
+              <li>15-second social edit</li>
+              <li>30-second promotional edit</li>
+            </ul>
+            <button class="btn btn--ghost btn--block" type="button" data-offer="song">
+              Get the Song Only
+            </button>
+
+            <!-- Payment placeholder — non-functional until a real link is added in js/config.js CONFIG.paymentLinks -->
+            <div class="offer__pay" data-pay="song"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       CONTACT PANEL
+       Opens on any CTA click with the relevant offer preselected —
+       but only as a fallback, once a real Stripe link is added to
+       CONFIG.paymentLinks the buttons skip straight to checkout instead.
+  ============================================================ -->
+  <div class="contact-panel" id="contact-panel" role="dialog" aria-modal="true" aria-labelledby="contact-heading" hidden>
+    <div class="contact-panel__backdrop" data-close-panel></div>
+    <div class="contact-panel__sheet">
+      <button class="contact-panel__close" type="button" data-close-panel aria-label="Close contact form">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.3 5.71 12 12l6.3 6.29-1.42 1.42L10.59 13.4 4.3 19.71 2.88 18.3 9.17 12 2.88 5.71 4.3 4.29l6.29 6.3 6.29-6.3z"/></svg>
+      </button>
+
+      <div class="contact-panel__content">
+        <h2 id="contact-heading">Let's build it</h2>
+        <p class="contact-panel__sub">Tell us where to reach you and we'll follow up personally.</p>
+
+        <!-- Placeholder endpoint: replace action with your real form handler (e.g. Formspree, Netlify Forms) -->
+        <form id="contact-form" data-form-endpoint="https://formspree.io/f/REPLACE_WITH_FORM_ID">
+          <div class="field">
+            <label for="cf-name">Name</label>
+            <input id="cf-name" name="name" type="text" required autocomplete="name" />
+          </div>
+
+          <div class="field">
+            <label for="cf-business">Business name</label>
+            <input id="cf-business" name="business" type="text" autocomplete="organization" />
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" name="email" type="email" required autocomplete="email" />
+            </div>
+            <div class="field">
+              <label for="cf-phone">Phone</label>
+              <input id="cf-phone" name="phone" type="tel" autocomplete="tel" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="cf-offer">Selected offer</label>
+            <select id="cf-offer" name="offer">
+              <option value="package">Creative Growth Package — $197/month</option>
+              <option value="song">Song Only — $49 one time</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" rows="3"></textarea>
+          </div>
+
+          <button class="btn btn--primary btn--block" type="submit">Send</button>
+        </form>
+
+        <div class="contact-panel__success" id="contact-success" hidden>
+          <svg class="icon icon--lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+          <h3>Message sent</h3>
+          <p>Thanks — we'll be in touch shortly to get everything set up.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FOOTER — reusable as-is.
+  ============================================================ -->
+  <footer class="footer">
+    <div class="wrap">
+      <p class="footer__made">Created for <span data-config="businessName">[Business Name]</span> by <span data-config="builtByName">Built4Vision</span></p>
+      <p class="footer__tag">Websites. Brand content. Custom business music.</p>
+      <a class="footer__link" data-config-href="builtByUrl" data-config="builtByUrlText" href="https://built4vision.com">built4vision.com</a>
+      <a class="footer__link footer__link--email" data-config-href="contactEmailHref" data-config="contactEmail" href="mailto:info@built4vision.com">info@built4vision.com</a>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

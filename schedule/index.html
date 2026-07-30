@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>Let's Meet — [Business Name]</title>
+  <!-- Post-purchase page: kept out of search results and off the main nav on purpose. -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Set the Creative Growth Package Payment Link's "after payment" redirect to this page. -->
+  <main id="main">
+    <section class="thanks-hero">
+      <div class="wrap wrap--narrow">
+        <p class="thanks-hero__badge" data-animate>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+          Order Confirmed
+        </p>
+        <h1 class="thanks-hero__headline" data-animate>Let's Meet.</h1>
+        <p class="thanks-hero__sub" data-animate>
+          Thanks for building the full <span data-config="businessName">[Business Name]</span> experience with us.
+          Pick a time below for a quick intro call, and we'll confirm by email.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap wrap--narrow">
+        <form id="schedule-form">
+          <div class="field">
+            <label for="sf-name">Name</label>
+            <input id="sf-name" name="name" type="text" required autocomplete="name" />
+          </div>
+
+          <div class="field">
+            <label for="sf-business">Business name</label>
+            <input id="sf-business" name="business" type="text" autocomplete="organization" />
+          </div>
+
+          <div class="field">
+            <label for="sf-email">Email</label>
+            <input id="sf-email" name="email" type="email" required autocomplete="email" />
+          </div>
+
+          <p class="section__subheading">Choose a time</p>
+          <div class="slot-grid" id="slot-grid" aria-live="polite"></div>
+
+          <button class="btn btn--primary btn--block" type="submit">Request This Time</button>
+          <p class="schedule-note">This opens your email app with the details filled in — send it and we'll confirm.</p>
+        </form>
+
+        <div class="contact-panel__success" id="schedule-success" hidden>
+          <svg class="icon icon--lg" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+          <h3>Almost there</h3>
+          <p>Your email app should be open with a request for <strong id="schedule-success-time"></strong> — just hit send.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p class="footer__made">Created for <span data-config="businessName">[Business Name]</span> by <span data-config="builtByName">Built4Vision</span></p>
+      <p class="footer__tag">Websites. Brand content. Custom business music.</p>
+      <a class="footer__link" data-config-href="builtByUrl" data-config="builtByUrlText" href="https://built4vision.com">built4vision.com</a>
+    </div>
+  </footer>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/schedule.js"></script>
+</body>
+</html>

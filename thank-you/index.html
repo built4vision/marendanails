@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>Thank You — [Business Name]</title>
+  <!-- Post-purchase page: kept out of search results and off the main nav on purpose. -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Set the Song Only Payment Link's "after payment" redirect to this page. -->
+  <main id="main">
+    <section class="thanks-hero">
+      <div class="wrap wrap--narrow">
+        <p class="thanks-hero__badge" data-animate>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+          Order Confirmed
+        </p>
+        <h1 class="thanks-hero__headline" data-animate>Thank You.</h1>
+        <p class="thanks-hero__sub" data-animate>
+          <span data-config="songTitle">[Song Title]</span> is officially
+          <span data-config="businessName">[Business Name]</span>'s. Everything is below —
+          yours to keep, use, and post whenever you're ready.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="deliverables" data-animate>
+
+          <div class="deliverable" data-deliverable="fullSongDownloadSrc">
+            <div class="deliverable__text">
+              <p class="deliverable__title">Full Clean Track</p>
+              <p class="deliverable__desc">The complete, clean master of your anthem.</p>
+            </div>
+            <div class="deliverable__action" data-deliverable-action>
+              <span class="deliverable__pending">Checking&hellip;</span>
+            </div>
+          </div>
+
+        </div>
+
+        <p class="rights-note" data-animate>
+          <strong>Business-use rights included.</strong> You're free to use this anthem across your
+          business's marketing, social media, and promotional content — no additional licensing needed.
+        </p>
+
+        <p class="thanks-support" data-animate>
+          Trouble with the download? Email
+          <a data-config-href="contactEmailHref" data-config="contactEmail" href="mailto:info@built4vision.com">info@built4vision.com</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p class="footer__made">Created for <span data-config="businessName">[Business Name]</span> by <span data-config="builtByName">Built4Vision</span></p>
+      <p class="footer__tag">Websites. Brand content. Custom business music.</p>
+      <a class="footer__link" data-config-href="builtByUrl" data-config="builtByUrlText" href="https://built4vision.com">built4vision.com</a>
+    </div>
+  </footer>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/thank-you.js"></script>
+</body>
+</html>
