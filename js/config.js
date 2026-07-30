@@ -55,7 +55,7 @@ const CONFIG = {
       stripe: "#",
     },
     song: {
-      stripe: "#",
+      stripe: "https://buy.stripe.com/8x27sL6LVfN5gWdeSm4sE0a",
     },
   },
 
