@@ -52,7 +52,7 @@ const CONFIG = {
   // disabled "(add link)" placeholder and falls back to the inquiry form.
   paymentLinks: {
     package: {
-      stripe: "#",
+      stripe: "https://buy.stripe.com/7sY5kD5HR7gz7lDeSm4sE0b",
     },
     song: {
       stripe: "https://buy.stripe.com/8x27sL6LVfN5gWdeSm4sE0a",
